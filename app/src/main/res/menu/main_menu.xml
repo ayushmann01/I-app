@@ -16,20 +16,22 @@
             android:title="Assignment" />
     </group>
 
-    <item
-        android:id="@+id/logout"
-        android:icon="@drawable/logout_icon"
-        android:title="Logout" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout_icon"
+            android:title="Logout" />
 
+    </group>
 
     <item android:title="Communicate">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/about"
-                    android:title="Help" />
+                    android:id="@+id/nav_share"
+                    android:title="Share" />
                 <item
-                    android:id="@+id/rate"
+                    android:id="@+id/nav_rate"
                     android:title="Rate App" />
             </group>
         </menu>

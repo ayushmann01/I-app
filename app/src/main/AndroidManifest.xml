@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Login"></activity>
+        <activity android:name=".ui.home.Assignments"></activity>
+        <activity android:name=".ui.home.Notes" />
+        <activity android:name=".ui.Login" />
         <activity android:name=".ui.Register">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,4 +25,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
 </manifest>
