@@ -3,6 +3,9 @@ package com.example.i_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,12 +18,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.i_app.data.Database;
 import com.example.i_app.ui.Login;
+import com.example.i_app.ui.Profile;
 import com.example.i_app.ui.fragments.Assignments;
 import com.example.i_app.ui.fragments.Home;
 import com.example.i_app.ui.fragments.Notes;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import javax.annotation.Nullable;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static NavigationView navigationView;
     private Toolbar toolbar;
     private Fragment fragment;
+    private TextView text_username;
+    private ImageView userImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /***************************HOOKS*****************************/
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
         /**************************Tool Bar**************************/
         setSupportActionBar(toolbar);
@@ -58,7 +71,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ft.replace(R.id.screen_view, fragment, "home")
                 .addToBackStack("home").commit();
 
-       // navigationView.setCheckedItem(R.id.nav_home);
+        // navigationView.setCheckedItem(R.id.nav_home);
+        /***********************NavigationVew Header**********************/
+
+        View header_view = navigationView.inflateHeaderView(R.layout.header);
+
+        text_username =  header_view.findViewById(R.id.text_username);
+        userImage = header_view.findViewById(R.id.userImage);
+
+        try {
+            DocumentReference docRef = Database.getUserData();
+            docRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    try {
+                        text_username.setText(documentSnapshot.getString("Name"));
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
+            });
+            userImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // start Profile activity
+                    userProfile();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -132,5 +175,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void userProfile(){
+        Intent intent = new Intent(MainActivity.this, Profile.class);
+        startActivity(intent);
+        finish();
     }
 }
