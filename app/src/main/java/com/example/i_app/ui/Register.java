@@ -1,8 +1,5 @@
 package com.example.i_app.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,22 +13,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.i_app.MainActivity;
 import com.example.i_app.R;
+import com.example.i_app.data.Database;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
-
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class Register extends AppCompatActivity {
 
@@ -42,20 +34,19 @@ public class Register extends AppCompatActivity {
     private EditText text_password;
     private EditText text_confirmPassword;
     private FirebaseAuth auth;
-    private FirebaseFirestore db;
     private String userId;
 
 
-    public void onRegister(View view){
+    public void onRegister(View view) {
 
-        if(!isDataValid()) {
+        if (!isDataValid()) {
             onFail();
             return;
         }
 
         btn_register.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog( this,
+        final ProgressDialog progressDialog = new ProgressDialog(this,
                 R.style.Theme_AppCompat_Light_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account");
@@ -72,26 +63,12 @@ public class Register extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = auth.getCurrentUser();
                             Log.d("Registration Result", "createUserWithEmail:success");
+                            //Stores the Registered user Data
+                            FirebaseUser user = auth.getCurrentUser();
                             userId = user.getUid();
-                            DocumentReference document = db.collection("users").document(userId);
-                            Map<String,Object> users = new HashMap<>();
-                            users.put("Name",name);
-                            users.put("Email",email);
-                            document.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG,"User profie created for "+ userId);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG,"Cannot create user profile create"+ e.toString() );
-                                }
-                            });
-
-                             updateUI(user);
+                            Database.registereUser(userId, name, email);
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Registration Result", "createUserWithEmail:failure", task.getException());
@@ -104,11 +81,11 @@ public class Register extends AppCompatActivity {
             public void run() {
                 progressDialog.dismiss();
             }
-        },3000);
+        }, 3000);
 
     }
 
-    public boolean isDataValid(){
+    public boolean isDataValid() {
 
         boolean valid = true;
 
@@ -117,40 +94,40 @@ public class Register extends AppCompatActivity {
         String password = text_password.getText().toString();
         String confirmPassword = text_confirmPassword.getText().toString();
 
-        if(name.isEmpty() || name.length() < 3){
+        if (name.isEmpty() || name.length() < 3) {
             text_name.setError("at least 3 characters");
             valid = false;
-        }else text_name.setError(null);
+        } else text_name.setError(null);
 
-        if( email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             text_email.setError("enter valid email address");
             valid = false;
-        }else text_email.setError(null);
+        } else text_email.setError(null);
 
-        if(password.isEmpty() || password.length() < 5 || password.length() > 15 || !password.equals(confirmPassword)) {
-            if( !password.equals(confirmPassword) ) {
+        if (password.isEmpty() || password.length() < 5 || password.length() > 15 || !password.equals(confirmPassword)) {
+            if (!password.equals(confirmPassword)) {
                 text_password.setError("Password does not match");
-            }else text_password.setError("between 5 and 15 alphanumeric characters");
+            } else text_password.setError("between 5 and 15 alphanumeric characters");
             valid = false;
-        }else text_password.setError(null);
+        } else text_password.setError(null);
 
         return valid;
     }
 
-    public void updateUI(FirebaseUser user){
+    public void updateUI(FirebaseUser user) {
         String name = user.getEmail();
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
         //Toast.makeText(getApplicationContext(),"Registration Successful! " +name,Toast.LENGTH_SHORT).show();
     }
 
-    public void onFail(){
-        Toast.makeText(this,"Signup Failed",Toast.LENGTH_SHORT).show();
+    public void onFail() {
+        Toast.makeText(this, "Signup Failed", Toast.LENGTH_SHORT).show();
         btn_register.setEnabled(true);
     }
 
-    public void onChangeLogin(View view){
+    public void onChangeLogin(View view) {
         Intent intent = new Intent(Register.this, Login.class);
         startActivity(intent);
         finish();
@@ -161,22 +138,16 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        text_name = (EditText) findViewById(R.id.text_name);
-        text_email = (EditText) findViewById(R.id.text_email);
-        text_password = (EditText) findViewById(R.id.text_password);
-        text_confirmPassword = (EditText) findViewById(R.id.text_confirmPassword);
+        text_name = findViewById(R.id.text_name);
+        text_email = findViewById(R.id.text_email);
+        text_password = findViewById(R.id.text_password);
+        text_confirmPassword = findViewById(R.id.text_confirmPassword);
         btn_register = findViewById(R.id.btn_register);
 
         auth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setTimestampsInSnapshotsEnabled(true)
-                .build();
-        db.setFirestoreSettings(settings);
 
-
-        if(FirebaseAuth.getInstance().getCurrentUser() != null ){
-            FirebaseUser user= auth.getCurrentUser();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            FirebaseUser user = auth.getCurrentUser();
             updateUI(user);
 
         }
@@ -184,9 +155,9 @@ public class Register extends AppCompatActivity {
         text_confirmPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-               if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
-                onRegister(v);
-               }
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    onRegister(v);
+                }
                 return false;
             }
         });
@@ -197,14 +168,14 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
             }
         });
     }
 
-    public void onBackground(View view){
-        InputMethodManager  inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+    public void onBackground(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 }
