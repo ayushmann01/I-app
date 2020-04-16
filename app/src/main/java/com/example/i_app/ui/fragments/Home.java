@@ -10,9 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.i_app.MainActivity;
 import com.example.i_app.R;
+import com.google.android.material.navigation.NavigationView;
 
 public class Home extends Fragment {
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -23,10 +27,12 @@ public class Home extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        MainActivity.navigationView.setCheckedItem(R.id.nav_home);
+
         view.findViewById(R.id.text_home).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"U enetered in Home",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "U enetered in Home", Toast.LENGTH_SHORT).show();
             }
         });
     }

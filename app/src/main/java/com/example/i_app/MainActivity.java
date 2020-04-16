@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+    public static NavigationView navigationView;
     private Toolbar toolbar;
     private Fragment fragment;
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ft.replace(R.id.screen_view, fragment, "home")
                 .addToBackStack("home").commit();
 
-        navigationView.setCheckedItem(R.id.nav_home);
+       // navigationView.setCheckedItem(R.id.nav_home);
     }
 
     @Override
@@ -78,8 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return;
-            }
-           else super.onBackPressed();
+            } else super.onBackPressed();
         }
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
