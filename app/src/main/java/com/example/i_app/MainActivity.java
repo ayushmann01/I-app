@@ -3,6 +3,7 @@ package com.example.i_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -138,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()) {
             case R.id.nav_home: {
+                Intent intent = getIntent();
+                startActivity(intent);
+                finish();
                 break;
             }
             case R.id.nav_notes: {
@@ -182,6 +186,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void userProfile() {
         Intent intent = new Intent(MainActivity.this, Profile.class);
         startActivity(intent);
-        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.fragments_menu,menu);
+        return true;
     }
 }

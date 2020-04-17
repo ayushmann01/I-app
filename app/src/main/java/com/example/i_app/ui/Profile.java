@@ -62,7 +62,6 @@ public class Profile extends AppCompatActivity {
         if (requestCode == 1000) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri imageUri = data.getData();
-
                 profileImage.setImageURI(imageUri);
                 database.uploadProfilePic(imageUri);
             }
@@ -86,8 +85,7 @@ public class Profile extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        super.onBackPressed();
     }
 
 }

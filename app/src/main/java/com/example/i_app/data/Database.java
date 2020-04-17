@@ -100,4 +100,20 @@ public class Database {
             }
         });
     }
+
+    public void uploadNotes(Uri noteUri,String noteName){
+        StorageReference notesRef = storage.child("notes/" + noteName + ".pdf");
+
+        notesRef.putFile(noteUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d("Notes Upload","Successful");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Notes Upload","Failed");
+            }
+        });
+    }
 }
