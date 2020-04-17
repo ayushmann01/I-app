@@ -2,6 +2,7 @@ package com.example.i_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -77,16 +78,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View header_view = navigationView.inflateHeaderView(R.layout.header);
 
         text_username =  header_view.findViewById(R.id.text_username);
-        userImage = header_view.findViewById(R.id.userImage);
+        userImage = header_view.findViewById(R.id.image_profile);
 
         try {
-            DocumentReference docRef = Database.getUserData();
+            DocumentReference docRef = new Database().getUserData();
             docRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
 
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                     try {
                         text_username.setText(documentSnapshot.getString("Name"));
+                        new Database().getProfilePic(userImage);
                     }catch (Exception ex){
                         ex.printStackTrace();
                     }
@@ -177,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void userProfile(){
+    public void userProfile() {
         Intent intent = new Intent(MainActivity.this, Profile.class);
         startActivity(intent);
         finish();

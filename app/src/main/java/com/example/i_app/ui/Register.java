@@ -67,7 +67,7 @@ public class Register extends AppCompatActivity {
                             //Stores the Registered user Data
                             FirebaseUser user = auth.getCurrentUser();
                             userId = user.getUid();
-                            Database.registereUser(userId, name, email);
+                            new Database().registereUser(userId, name, email);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
