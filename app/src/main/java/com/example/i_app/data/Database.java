@@ -84,7 +84,7 @@ public class Database {
         });
     }
 
-    public void getProfilePic(final ImageView profileImage) {
+    public void setProfilePic(final ImageView profileImage) {
         StorageReference profileRef = storage.child("users/" + currentUserId + "/profile.jpg");
 
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

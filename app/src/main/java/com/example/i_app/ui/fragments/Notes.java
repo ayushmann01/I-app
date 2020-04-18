@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,12 @@ import com.example.i_app.MainActivity;
 import com.example.i_app.R;
 import com.example.i_app.data.Database;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.net.URL;
+
+import io.grpc.Context;
 
 import static com.example.i_app.MainActivity.navigationView;
 
@@ -26,6 +34,7 @@ public class Notes extends Fragment {
 
     private String noteName;
     private EditText text_noteName;
+    private StorageReference storageReference;
 
 
     @Nullable
@@ -37,9 +46,15 @@ public class Notes extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         navigationView.setCheckedItem(R.id.nav_notes);
-        text_noteName = view.findViewById(R.id.text_noteName);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        StorageReference noteRef = storageReference.child("notes/");
+        String note = noteRef.getDownloadUrl().toString();
+
+
+         text_noteName = view.findViewById(R.id.editText);
 
         view.findViewById(R.id.button_uploadNote).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,10 +91,10 @@ public class Notes extends Fragment {
                 public void run() {
 
                     new Database().uploadNotes(noteUri, noteName);
-
+                    Toast.makeText(getActivity(),"Uploaded Successfully",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
-            }, 1500);
+            }, 1000);
         }
       text_noteName.setText(null);
     }

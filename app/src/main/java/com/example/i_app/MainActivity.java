@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private Fragment fragment;
     private TextView text_username;
-    private ImageView userImage;
+    private   ImageView userImage;
+    public static  CurrentUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +83,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userImage = header_view.findViewById(R.id.image_profile);
 
         try {
-            DocumentReference docRef = new Database().getUserData();
+            final Database database = new Database();
+            DocumentReference docRef = database.getUserData();
             docRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
 
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                     try {
-                        text_username.setText(documentSnapshot.getString("Name"));
-                        new Database().getProfilePic(userImage);
+                        String username  =  documentSnapshot.getString("Name");
+                        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                        text_username.setText(username);
+                        database.setProfilePic(userImage);
+
+                        currentUser = new CurrentUser(username,userImage,userEmail);
                     }catch (Exception ex){
                         ex.printStackTrace();
                     }
