@@ -3,12 +3,20 @@ package com.example.i_app.data;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.i_app.MainActivity;
+import com.example.i_app.ui.fragments.Notes;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -24,12 +32,13 @@ import java.util.Map;
 import static android.content.ContentValues.TAG;
 
 public class Database {
-    private  FirebaseFirestore firestoreDB;
-    private  FirebaseAuth auth;
-    private  StorageReference storage;
-    private  String currentUserId;
+    private FirebaseFirestore firestoreDB;
+    private FirebaseAuth auth;
+    private StorageReference storage;
+    private String currentUserId;
+    public Result upload_result = new Result(false);
 
-    public Database(){
+    public Database() {
         firestoreDB = FirebaseFirestore.getInstance();
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)
@@ -41,7 +50,11 @@ public class Database {
         currentUserId = auth.getCurrentUser().getUid();
     }
 
-    public  void registereUser(final String userId, final String name, final String email) {
+    public FirebaseFirestore getDb() {
+        return firestoreDB;
+    }
+
+    public void registereUser(final String userId, final String name, final String email) {
         try {
             DocumentReference document = firestoreDB.collection("users").document(userId);
             Map<String, Object> users = new HashMap<>();
@@ -63,13 +76,13 @@ public class Database {
         }
     }
 
-    public  DocumentReference getUserData() throws FirebaseFirestoreException {
+    public DocumentReference getUserData() throws FirebaseFirestoreException {
         DocumentReference docRef = firestoreDB.collection("users").document(currentUserId);
         return docRef;
     }
 
     public void uploadProfilePic(Uri imageUri) {
-        StorageReference file = storage.child("users/" + currentUserId +"/profile.jpg");
+        StorageReference file = storage.child("users/" + currentUserId + "/profile.jpg");
 
         file.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -101,18 +114,42 @@ public class Database {
         });
     }
 
-    public void uploadNotes(Uri noteUri,String noteName){
-        StorageReference notesRef = storage.child("notes/" + noteName + ".pdf");
+    public void uploadNotes(Uri noteUri, final String noteName) {
+        boolean success = false;
+        final StorageReference notesRef = storage.child("notes/" + noteName + ".pdf");
+        final CollectionReference collectionReference = firestoreDB.collection("Notes");
 
-        notesRef.putFile(noteUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        notesRef.putFile(noteUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d("Notes Upload","Successful");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("Notes Upload","Failed");
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                if (task.isSuccessful()){
+                    upload_result.setSuccess(true);
+                }
+
+                notesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("Name", noteName);
+                        map.put("Url", uri.toString());
+                        map.put("Uploader", MainActivity.currentUser.getUsername());
+
+                        collectionReference.add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("URL upload", "Success");
+                                Notes.progressDialog.dismiss();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("URL upload", "Failed");
+                                upload_result.setSuccess(false);
+                            }
+                        });
+                    }
+                });
             }
         });
     }

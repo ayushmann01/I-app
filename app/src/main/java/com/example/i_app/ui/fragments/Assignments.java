@@ -2,6 +2,9 @@ package com.example.i_app.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -35,5 +38,17 @@ public class Assignments extends Fragment {
                 Toast.makeText(getActivity(), "U enetered in Assignment Section", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        MenuItem item = menu.findItem(R.id.add_pdf);
+        item.setVisible(false);
+        //super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        //super.onCreateOptionsMenu(menu, inflater);
     }
 }
