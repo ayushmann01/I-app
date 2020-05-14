@@ -31,7 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(notesFragment.getContext());
-        View view = layoutInflater.inflate(R.layout.notes_list,null,false);
+        View view = layoutInflater.inflate(R.layout.notes_view,null,false);
 
         return new MyViewHolder(view);
     }

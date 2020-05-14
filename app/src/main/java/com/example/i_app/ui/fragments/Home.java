@@ -3,7 +3,6 @@ package com.example.i_app.ui.fragments;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.example.i_app.MainActivity;
 import com.example.i_app.R;
-import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home extends Fragment {
 
@@ -32,12 +34,10 @@ public class Home extends Fragment {
 
         MainActivity.navigationView.setCheckedItem(R.id.nav_home);
 
-        view.findViewById(R.id.text_home).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "U enetered in Home", Toast.LENGTH_SHORT).show();
-            }
-        });
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
+        NavController navController = Navigation.findNavController(getActivity(),R.id.fragment);
+
+        NavigationUI.setupWithNavController(bottomNavigationView,navController);
     }
 
     @Override
@@ -48,8 +48,15 @@ public class Home extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        MenuItem item = menu.findItem(R.id.add_pdf);
-        item.setVisible(false);
-        //super.onPrepareOptionsMenu(menu);
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+       if(item.getItemId() == R.id.add_pdf){
+           Toast.makeText(getContext(),"Clicked",Toast.LENGTH_SHORT).show();
+       }
+
+        return super.onOptionsItemSelected(item);
     }
 }
