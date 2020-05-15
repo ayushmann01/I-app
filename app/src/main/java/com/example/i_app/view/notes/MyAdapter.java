@@ -1,4 +1,4 @@
-package com.example.i_app.ui.fragments;
+package com.example.i_app.view.notes;
 
 import android.app.DownloadManager;
 import android.content.Context;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.i_app.R;
-import com.example.i_app.data.DownModel;
+import com.example.i_app.model.DownModel;
 
 import java.util.ArrayList;
 

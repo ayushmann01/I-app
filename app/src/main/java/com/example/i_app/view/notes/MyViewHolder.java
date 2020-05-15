@@ -1,4 +1,4 @@
-package com.example.i_app.ui.fragments;
+package com.example.i_app.view.notes;
 
 import android.view.View;
 import android.widget.Button;

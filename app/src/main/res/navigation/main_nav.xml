@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/feed"
-        android:name="com.example.i_app.feed"
+        android:name="com.example.i_app.view.home.feed"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" />
     <fragment
         android:id="@+id/QnA"
-        android:name="com.example.i_app.QnA"
+        android:name="com.example.i_app.view.home.QnA"
         android:label="fragment_qna"
         tools:layout="@layout/fragment_qna" />
 </navigation>

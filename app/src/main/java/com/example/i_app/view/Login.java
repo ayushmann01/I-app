@@ -1,12 +1,10 @@
-package com.example.i_app.ui;
+package com.example.i_app.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.Session2Command;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -18,7 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.i_app.MainActivity;
+import com.example.i_app.controller.MainActivity;
 import com.example.i_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

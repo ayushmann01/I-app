@@ -1,4 +1,4 @@
-package com.example.i_app;
+package com.example.i_app.controller;
 
 import android.widget.ImageView;
 

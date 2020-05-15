@@ -1,4 +1,4 @@
-package com.example.i_app.ui;
+package com.example.i_app.view.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 

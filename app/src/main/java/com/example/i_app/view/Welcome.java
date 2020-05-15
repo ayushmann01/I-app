@@ -1,4 +1,4 @@
-package com.example.i_app;
+package com.example.i_app.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.i_app.ui.Login;
-import com.example.i_app.ui.Register;
+import com.example.i_app.R;
 
 public class Welcome extends AppCompatActivity {
 

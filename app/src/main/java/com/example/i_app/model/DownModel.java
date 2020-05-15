@@ -1,4 +1,4 @@
-package com.example.i_app.data;
+package com.example.i_app.model;
 
 public class DownModel {
 

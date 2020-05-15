@@ -1,16 +1,13 @@
-package com.example.i_app.data;
+package com.example.i_app.model;
 
 import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.i_app.MainActivity;
-import com.example.i_app.ui.fragments.Notes;
+import com.example.i_app.controller.MainActivity;
+import com.example.i_app.view.notes.Notes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

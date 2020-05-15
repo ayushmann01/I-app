@@ -1,5 +1,6 @@
-package com.example.i_app.ui.fragments;
+package com.example.i_app.view.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.i_app.MainActivity;
+import com.example.i_app.controller.MainActivity;
 import com.example.i_app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -55,8 +56,9 @@ public class Home extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
        if(item.getItemId() == R.id.add_pdf){
            Toast.makeText(getContext(),"Clicked",Toast.LENGTH_SHORT).show();
+           Intent intent = new Intent(getActivity(), AskQuestion.class);
+           startActivity(intent);
        }
-
         return super.onOptionsItemSelected(item);
     }
 }

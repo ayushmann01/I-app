@@ -1,4 +1,4 @@
-package com.example.i_app;
+package com.example.i_app.view.home;
 
 import android.os.Bundle;
 
@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.i_app.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QnA extends Fragment {
+public class feed extends Fragment {
 
-    public QnA() {
+    public feed() {
         // Required empty public constructor
     }
 
@@ -23,6 +25,6 @@ public class QnA extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_qna, container, false);
+        return inflater.inflate(R.layout.fragment_feed, container, false);
     }
 }

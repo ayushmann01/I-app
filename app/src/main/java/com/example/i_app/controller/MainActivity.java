@@ -1,4 +1,4 @@
-package com.example.i_app;
+package com.example.i_app.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,12 +20,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.i_app.data.Database;
-import com.example.i_app.ui.Login;
-import com.example.i_app.ui.Profile;
-import com.example.i_app.ui.fragments.Assignments;
-import com.example.i_app.ui.fragments.Home;
-import com.example.i_app.ui.fragments.Notes;
+import com.example.i_app.R;
+import com.example.i_app.model.Database;
+import com.example.i_app.view.Login;
+import com.example.i_app.view.Profile;
+import com.example.i_app.view.assignments.Assignments;
+import com.example.i_app.view.home.Home;
+import com.example.i_app.view.notes.Notes;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Fragment fragment;
     private TextView text_username;
     private   ImageView userImage;
-    public static  CurrentUser currentUser;
+    public static CurrentUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

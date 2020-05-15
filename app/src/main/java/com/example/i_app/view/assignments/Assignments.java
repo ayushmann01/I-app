@@ -1,4 +1,4 @@
-package com.example.i_app.ui.fragments;
+package com.example.i_app.view.assignments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.i_app.MainActivity;
+import com.example.i_app.controller.MainActivity;
 import com.example.i_app.R;
-import com.google.android.material.navigation.NavigationView;
 
 public class Assignments extends Fragment {
 

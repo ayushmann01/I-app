@@ -1,4 +1,4 @@
-package com.example.i_app.ui;
+package com.example.i_app.view;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -14,10 +14,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.i_app.CurrentUser;
-import com.example.i_app.MainActivity;
+import com.example.i_app.controller.MainActivity;
 import com.example.i_app.R;
-import com.example.i_app.data.Database;
+import com.example.i_app.model.Database;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;

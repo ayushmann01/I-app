@@ -1,4 +1,4 @@
-package com.example.i_app.ui.fragments;
+package com.example.i_app.view.notes;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,12 +23,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.i_app.R;
-import com.example.i_app.data.Database;
-import com.example.i_app.data.DownModel;
+import com.example.i_app.model.Database;
+import com.example.i_app.model.DownModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
@@ -36,7 +35,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-import static com.example.i_app.MainActivity.navigationView;
+import static com.example.i_app.controller.MainActivity.navigationView;
 
 public class Notes extends Fragment {
     private StorageReference storageReference;

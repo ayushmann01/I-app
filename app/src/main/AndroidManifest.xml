@@ -10,18 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.AskQuestion"></activity>
-        <activity android:name=".Welcome">
+        <activity android:name=".view.home.AskQuestion"></activity>
+        <activity android:name=".view.Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Profile" />
-        <activity android:name=".ui.Login" />
-        <activity android:name=".ui.Register" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".view.Profile" />
+        <activity android:name=".view.Login" />
+        <activity android:name=".view.Register" />
+        <activity android:name=".controller.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
