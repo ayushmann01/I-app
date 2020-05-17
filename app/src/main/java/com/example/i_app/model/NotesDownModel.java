@@ -1,10 +1,10 @@
 package com.example.i_app.model;
 
-public class DownModel {
+public class NotesDownModel {
 
-    String pdf_name, link, uploader;
+    private String pdf_name, link, uploader;
 
-    public DownModel(String pdf_name, String link, String uploader) {
+    public NotesDownModel(String pdf_name, String link, String uploader) {
         this.pdf_name = pdf_name;
         this.link = link;
         this.uploader = uploader;

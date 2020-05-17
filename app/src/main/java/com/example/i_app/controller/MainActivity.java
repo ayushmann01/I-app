@@ -22,7 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.i_app.R;
 import com.example.i_app.model.Database;
-import com.example.i_app.view.Login;
+import com.example.i_app.view.auth.Login;
 import com.example.i_app.view.Profile;
 import com.example.i_app.view.assignments.Assignments;
 import com.example.i_app.view.home.Home;

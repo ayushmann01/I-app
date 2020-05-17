@@ -1,4 +1,4 @@
-package com.example.i_app.view;
+package com.example.i_app.view.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +32,7 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth auth;
 
     public void onChangeRegister(View view){
-        startActivity(new Intent(Login.this,Register.class));
+        startActivity(new Intent(Login.this, Register.class));
         finish();
     }
 

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.i_app.R;
+import com.example.i_app.view.auth.Login;
+import com.example.i_app.view.auth.Register;
 
 public class Welcome extends AppCompatActivity {
 

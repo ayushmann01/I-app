@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.i_app.R;
 import com.example.i_app.model.Database;
-import com.example.i_app.model.DownModel;
+import com.example.i_app.model.NotesDownModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -40,8 +40,8 @@ import static com.example.i_app.controller.MainActivity.navigationView;
 public class Notes extends Fragment {
     private StorageReference storageReference;
     private RecyclerView notesRecyclerView;
-    private MyAdapter myAdapter;
-    private ArrayList<DownModel> downModelArrayList = new ArrayList<>();
+    private NotesAdapter notesAdapter;
+    private ArrayList<NotesDownModel> downModelArrayList = new ArrayList<>();
     private Button button_upload;
     private EditText text_noteName;
     private String noteName;
@@ -78,13 +78,12 @@ public class Notes extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                         for(DocumentSnapshot documentSnapshot: task.getResult()){
-                            DownModel downModel = new DownModel(documentSnapshot.getString("Name"),
+                            NotesDownModel downModel = new NotesDownModel(documentSnapshot.getString("Name"),
                                     documentSnapshot.getString("Url"), documentSnapshot.getString("Uploader") );
                             downModelArrayList.add(downModel);
                         }
-
-                        myAdapter = new MyAdapter(Notes.this,downModelArrayList);
-                        notesRecyclerView.setAdapter(myAdapter);
+                        notesAdapter = new NotesAdapter(Notes.this,downModelArrayList);
+                        notesRecyclerView.setAdapter(notesAdapter);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

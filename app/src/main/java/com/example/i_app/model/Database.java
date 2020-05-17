@@ -150,4 +150,14 @@ public class Database {
             }
         });
     }
+
+    public Task<DocumentReference> uploadQuestion(String question){
+         CollectionReference questionCollection = firestoreDB.collection("Questions");
+
+         HashMap<String, String> file = new HashMap<>();
+         file.put("question",question);
+         file.put("Uploader",MainActivity.currentUser.getUsername());
+
+         return questionCollection.add(file);
+    }
 }

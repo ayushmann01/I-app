@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:elevation="90dp"
-    app:cardCornerRadius="12dp"
     android:layout_margin="8dp"
-    android:background="@color/colorAccent">
+    android:background="@color/colorAccent"
+    android:elevation="90dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="12dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,13 +28,15 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="5dp"
             android:layout_marginTop="90dp"
-            android:elevation="2dp"
-            android:background="@color/colorAccent">
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorAccent"
+            android:elevation="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:layout_marginBottom="2dp"
                 android:background="@color/colorAccent"
                 android:orientation="horizontal">
 
@@ -61,13 +64,15 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="100dp"
             android:layout_marginTop="90dp"
-            android:elevation="2dp"
-            android:background="@color/colorAccent">
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorAccent"
+            android:elevation="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:layout_marginBottom="2dp"
                 android:background="#FFFFFF"
                 android:orientation="horizontal">
 
@@ -89,7 +94,7 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -131,6 +136,29 @@
             android:layout_marginStart="56dp"
             android:layout_marginTop="6dp"
             android:text="TextView"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="73dp"
+            android:text="Asked by- "
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/text_uploader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="33dp"
+            android:text="Name"
             android:textColor="#000000" />
     </RelativeLayout>
 

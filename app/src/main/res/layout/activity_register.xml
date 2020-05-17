@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/lsbackground"
     android:onClick="onBackground"
-    tools:context=".view.Register">
+    tools:context=".view.auth.Register">
 
     <TextView
         android:id="@+id/registerTextview"

@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.Profile" />
-        <activity android:name=".view.Login" />
-        <activity android:name=".view.Register" />
+        <activity android:name=".view.auth.Login" />
+        <activity android:name=".view.auth.Register" />
         <activity android:name=".controller.MainActivity" />
 
         <meta-data

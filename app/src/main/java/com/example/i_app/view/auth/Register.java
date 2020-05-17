@@ -1,4 +1,4 @@
-package com.example.i_app.view;
+package com.example.i_app.view.auth;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
