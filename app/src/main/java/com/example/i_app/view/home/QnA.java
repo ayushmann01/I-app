@@ -1,5 +1,6 @@
 package com.example.i_app.view.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class QnA extends Fragment {
     private RecyclerView questionsRecyclerView;
     private ArrayList<QuestionDownModel> questionDownModels = new ArrayList<>();
     private QuestionsAdapter questionsAdapter;
+    static public String question;
 
     public QnA() {
         // Required empty public constructor
@@ -70,5 +72,10 @@ public class QnA extends Fragment {
                         questionsRecyclerView.setAdapter(questionsAdapter);
                     }
                 });
+    }
+
+    public void writeAnswer(String question){
+        QnA.question = question;
+        startActivity( new Intent(this.getActivity(), Answers.class) );
     }
 }

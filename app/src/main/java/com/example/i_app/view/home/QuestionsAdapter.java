@@ -1,5 +1,6 @@
 package com.example.i_app.view.home;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +32,17 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QuestionsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final QuestionsViewHolder holder, final int position) {
 
         holder.text_uploader.setText(downModels.get(position).getUploader());
         holder.text_question.setText(downModels.get(position).getQuestion());
+
+        holder.card_answer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qnaFragment.writeAnswer( downModels.get(position).getQuestion() );
+            }
+        });
     }
 
     @Override

@@ -48,7 +48,7 @@
                 android:layout_marginTop="2dp"
                 android:text="Tips on getting good answers"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
             <TextView
@@ -59,7 +59,7 @@
                 android:paddingTop="4dp"
                 android:text="Make sure your question has not been asked already"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/black"
                 android:textStyle="italic" />
 
             <TextView
@@ -70,7 +70,7 @@
                 android:paddingTop="4dp"
                 android:text="Keep your question short and to the point"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/black"
                 android:textStyle="italic" />
 
             <TextView
@@ -83,7 +83,7 @@
                 android:paddingTop="4dp"
                 android:text="Double check grammar and spelling"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/black"
                 android:textStyle="italic" />
 
 
@@ -137,7 +137,7 @@
         android:background="@drawable/button"
         android:text="Add"
         android:textAllCaps="false"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.872"
