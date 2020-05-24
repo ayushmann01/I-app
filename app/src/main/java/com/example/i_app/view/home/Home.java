@@ -20,6 +20,8 @@ import com.example.i_app.controller.MainActivity;
 import com.example.i_app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Objects;
+
 public class Home extends Fragment {
 
 
@@ -32,6 +34,7 @@ public class Home extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Objects.requireNonNull(getActivity()).setTitle("Home");
 
         MainActivity.navigationView.setCheckedItem(R.id.nav_home);
 

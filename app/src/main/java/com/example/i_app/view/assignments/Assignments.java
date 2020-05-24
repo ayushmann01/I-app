@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import com.example.i_app.controller.MainActivity;
 import com.example.i_app.R;
 
+import java.util.Objects;
+
 public class Assignments extends Fragment {
 
 
@@ -28,6 +30,7 @@ public class Assignments extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Objects.requireNonNull(getActivity()).setTitle("Assignments");
 
         MainActivity.navigationView.setCheckedItem(R.id.nav_assignment);
 

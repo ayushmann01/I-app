@@ -19,7 +19,7 @@
         android:layout_marginBottom="2dp"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="2dp">
+        android:paddingTop="4dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_answer"

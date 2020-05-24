@@ -30,7 +30,7 @@
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:padding="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/answer"
+        app:layout_constraintBottom_toTopOf="@+id/text_answer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.611"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
     </androidx.cardview.widget.CardView>
 
     <EditText
-        android:id="@+id/answer"
+        android:id="@+id/text_answer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"

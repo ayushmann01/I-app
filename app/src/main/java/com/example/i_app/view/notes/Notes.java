@@ -30,19 +30,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.StorageReference;
-
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.example.i_app.controller.MainActivity.navigationView;
 
 public class Notes extends Fragment {
-    private StorageReference storageReference;
     private RecyclerView notesRecyclerView;
     private NotesAdapter notesAdapter;
     private ArrayList<NotesDownModel> downModelArrayList = new ArrayList<>();
-    private Button button_upload;
     private EditText text_noteName;
     private String noteName;
     private Database database;
@@ -58,15 +55,16 @@ public class Notes extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navigationView.setCheckedItem(R.id.nav_notes);
+        Objects.requireNonNull(getActivity()).setTitle("Notes");
 
 
         progressDialog = new ProgressDialog(getActivity(),
                 R.style.Theme_AppCompat_Light_Dialog);
 
-        /*******************Setting up RecycleView********************************/
+        /******************Setting up RecycleView********************************/
         notesRecyclerView = view.findViewById(R.id.recycle);
         notesRecyclerView.setHasFixedSize(true);
-        notesRecyclerView.setLayoutManager(new LinearLayoutManager( getContext() ));
+        notesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         database = new Database();
@@ -77,18 +75,18 @@ public class Notes extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                        for(DocumentSnapshot documentSnapshot: task.getResult()){
+                        for (DocumentSnapshot documentSnapshot : Objects.requireNonNull(task.getResult())) {
                             NotesDownModel downModel = new NotesDownModel(documentSnapshot.getString("Name"),
-                                    documentSnapshot.getString("Url"), documentSnapshot.getString("Uploader") );
+                                    documentSnapshot.getString("Url"), documentSnapshot.getString("Uploader"));
                             downModelArrayList.add(downModel);
                         }
-                        notesAdapter = new NotesAdapter(Notes.this,downModelArrayList);
+                        notesAdapter = new NotesAdapter(Notes.this, downModelArrayList);
                         notesRecyclerView.setAdapter(notesAdapter);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(),"Failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -108,41 +106,41 @@ public class Notes extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.add_pdf){
-           // Toast.makeText(getContext(),"button clicked",Toast.LENGTH_SHORT).show();
-                final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                View addView = getLayoutInflater().inflate(R.layout.custom_adddialog,null);
+        if (item.getItemId() == R.id.add_pdf) {
+            // Toast.makeText(getContext(),"button clicked",Toast.LENGTH_SHORT).show();
+            final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+            View addView = getLayoutInflater().inflate(R.layout.custom_adddialog, null);
 
-                button_upload = addView.findViewById(R.id.button_upload);
-                text_noteName = addView.findViewById(R.id.notes_name);
+            Button button_upload = addView.findViewById(R.id.button_upload);
+            text_noteName = addView.findViewById(R.id.notes_name);
 
-                alert.setView(addView);
+            alert.setView(addView);
 
-                final AlertDialog alertDialog = alert.create();
-                alertDialog.show();
-                alertDialog.setCanceledOnTouchOutside(true);
+            final AlertDialog alertDialog = alert.create();
+            alertDialog.show();
+            alertDialog.setCanceledOnTouchOutside(true);
 
-                button_upload.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        noteName = text_noteName.getText().toString();
-                        if (noteName.isEmpty()){
-                            text_noteName.setError("Enter a valid name");
-                            return;
-                        }else text_noteName.setError(null);
+            button_upload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    noteName = text_noteName.getText().toString();
+                    if (noteName.isEmpty()) {
+                        text_noteName.setError("Enter a valid name");
+                        return;
+                    } else text_noteName.setError(null);
 
-                        Intent intent = new Intent();
-                        intent.setType("application/pdf");
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(intent, "Select Pdf"), 2000);
-                    }
-                });
-                return  true;
-        }
-        else {
+                    Intent intent = new Intent();
+                    intent.setType("application/pdf");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select Pdf"), 2000);
+                }
+            });
+            return true;
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -157,16 +155,16 @@ public class Notes extends Fragment {
             progressDialog.show();
 
 
-                new android.os.Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(database.upload_result.isSuccess()) {
-                            Toast.makeText(getActivity(), "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                        }
+            new android.os.Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (database.upload_result.isSuccess()) {
+                        Toast.makeText(getActivity(), "Uploaded Successfully", Toast.LENGTH_SHORT).show();
                     }
-                }, 30*1000);
+                }
+            }, 30 * 1000);
 
         }
-       // text_noteName.setText(null);
+        // text_noteName.setText(null);
     }
 }

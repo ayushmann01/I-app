@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -25,12 +24,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static android.content.ContentValues.TAG;
 
 public class Database {
     private FirebaseFirestore firestoreDB;
-    private FirebaseAuth auth;
     private StorageReference storage;
     private String currentUserId;
     public Result upload_result = new Result(false);
@@ -43,39 +42,35 @@ public class Database {
         firestoreDB.setFirestoreSettings(settings);
 
         storage = FirebaseStorage.getInstance().getReference();
-        auth = FirebaseAuth.getInstance();
-        currentUserId = auth.getCurrentUser().getUid();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        currentUserId = Objects.requireNonNull(auth.getCurrentUser()).getUid();
     }
 
     public FirebaseFirestore getDb() {
         return firestoreDB;
     }
 
-    public void registereUser(final String userId, final String name, final String email) {
-        try {
-            DocumentReference document = firestoreDB.collection("users").document(userId);
-            Map<String, Object> users = new HashMap<>();
-            users.put("Name", name);
-            users.put("Email", email);
-            document.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d(TAG, "User profie created for " + userId);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "Cannot create user profile create" + e.toString());
-                }
-            });
-        } catch (Exception f) {
-            return;
-        }
+    public void registerUser(final String userId, final String name, final String email) {
+        DocumentReference document = firestoreDB.collection("users").document(userId);
+        Map<String, Object> users = new HashMap<>();
+        users.put("Name", name);
+        users.put("Email", email);
+        document.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "User profie created for " + userId);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Cannot create user profile create" + e.toString());
+            }
+        });
+
     }
 
-    public DocumentReference getUserData() throws FirebaseFirestoreException {
-        DocumentReference docRef = firestoreDB.collection("users").document(currentUserId);
-        return docRef;
+    public DocumentReference getUserData() {
+        return firestoreDB.collection("users").document(currentUserId);
     }
 
     public void uploadProfilePic(Uri imageUri) {
@@ -112,7 +107,6 @@ public class Database {
     }
 
     public void uploadNotes(Uri noteUri, final String noteName) {
-        boolean success = false;
         final StorageReference notesRef = storage.child("notes/" + noteName + ".pdf");
         final CollectionReference collectionReference = firestoreDB.collection("Notes");
 
@@ -120,7 +114,7 @@ public class Database {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     upload_result.setSuccess(true);
                 }
 
@@ -151,13 +145,22 @@ public class Database {
         });
     }
 
-    public Task<DocumentReference> uploadQuestion(String question){
-         CollectionReference questionCollection = firestoreDB.collection("Questions");
+    public Task<Void> uploadQuestion(String question) {
+        DocumentReference questionDocument = firestoreDB.collection("Questions").document(question);
 
-         HashMap<String, String> file = new HashMap<>();
-         file.put("question",question);
-         file.put("Uploader",MainActivity.currentUser.getUsername());
+        HashMap<String, String> file = new HashMap<>();
+        file.put("question", question);
+        file.put("Uploader", MainActivity.currentUser.getUsername());
 
-         return questionCollection.add(file);
+        return questionDocument.set(file);
+    }
+
+    public Task<Void> uploadAnswer(String question, String answer) {
+        DocumentReference quesRef = firestoreDB.collection("Questions").document(question);
+
+        Map<String, Object> ans = new HashMap<>();
+        ans.put("answer", answer);
+
+        return quesRef.update(ans);
     }
 }
