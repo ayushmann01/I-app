@@ -23,7 +23,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.i_app.R;
 import com.example.i_app.model.Database;
 import com.example.i_app.view.auth.Login;
-import com.example.i_app.view.Profile;
 import com.example.i_app.view.assignments.Assignments;
 import com.example.i_app.view.home.Home;
 import com.example.i_app.view.notes.Notes;
@@ -34,13 +33,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.Objects;
+
 import javax.annotation.Nullable;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     public static NavigationView navigationView;
-    private Toolbar toolbar;
     private Fragment fragment;
     private TextView text_username;
     private   ImageView userImage;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /***************************HOOKS*****************************/
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         /**************************Tool Bar**************************/
         setSupportActionBar(toolbar);
@@ -91,8 +91,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                     try {
+                        assert documentSnapshot != null;
                         String username  =  documentSnapshot.getString("Name");
-                        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                        String userEmail = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
 
                         text_username.setText(username);
                         database.setProfilePic(userImage);
@@ -101,13 +102,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }catch (Exception ex){
                         ex.printStackTrace();
                     }
-                }
-            });
-            userImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // start Profile activity
-                    userProfile();
                 }
             });
         }catch (Exception e){
@@ -124,11 +118,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-        /*    FragmentManager fg = getSupportFragmentManager();
-            FragmentTransaction ft = fg.beginTransaction();
+//            FragmentManager fg = getSupportFragmentManager();
+//            FragmentTransaction ft = fg.beginTransaction();
+//
+//            ft.remove(fragment).commit();
 
-            ft.remove(fragment).commit();
-*/
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return;
@@ -147,9 +141,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()) {
             case R.id.nav_home: {
-                Intent intent = getIntent();
-                startActivity(intent);
-                finish();
+                fragment = new Home();
+                tag = "Home";
                 break;
             }
             case R.id.nav_notes: {
@@ -189,11 +182,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void userProfile() {
-        Intent intent = new Intent(MainActivity.this, Profile.class);
-        startActivity(intent);
     }
 
     @Override

@@ -12,7 +12,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.home.Answers"/>
         <activity android:name=".view.home.AskQuestion"/>
-        <activity android:name=".view.Profile" />
         <activity android:name=".view.auth.Login" />
         <activity android:name=".view.auth.Register" />
         <activity android:name=".controller.MainActivity">

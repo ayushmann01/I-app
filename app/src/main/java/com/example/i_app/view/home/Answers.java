@@ -56,7 +56,7 @@ public class Answers extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "Succesfully Added", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Successfully Added", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

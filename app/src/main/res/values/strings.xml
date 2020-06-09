@@ -14,4 +14,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">profile</string>
+    <string name="qna">QnA</string>
+    <string name="feed">Feed</string>
+    <string name="name">Name</string>
+    <string name="asked_by">Asked by-</string>
+    <string name="Text">TextView</string>
+    <string name="topic">Topic:-</string>
+    <string name="how_are_you">How are you?</string>
+    <string name="see_answer">See Answer</string>
+    <string name="uploaded_by">Uploaded by-</string>
+    <string name="download">Download</string>
+    <string name="pdf_name">Pdf name</string>
 </resources>

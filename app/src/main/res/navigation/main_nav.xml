@@ -15,4 +15,9 @@
         android:name="com.example.i_app.view.home.QnA"
         android:label="fragment_qna"
         tools:layout="@layout/fragment_qna" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.i_app.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

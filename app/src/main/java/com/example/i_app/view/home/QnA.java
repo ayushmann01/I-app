@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,10 +74,11 @@ public class QnA extends Fragment {
                         }
                         questionsAdapter = new QuestionsAdapter(QnA.this, questionDownModels);
                         questionsRecyclerView.setAdapter(questionsAdapter);
+                        questionsAdapter.notifyDataSetChanged();
+                        questionsRecyclerView.setItemAnimator(new DefaultItemAnimator());
                     }
                 });
     }
-
     void writeAnswer(String question){
         QnA.question = question;
         startActivity( new Intent(this.getActivity(), Answers.class) );
