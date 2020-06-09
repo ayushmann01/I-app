@@ -23,7 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.i_app.R;
 import com.example.i_app.model.Database;
 import com.example.i_app.view.auth.Login;
-import com.example.i_app.view.assignments.Assignments;
+import com.example.i_app.view.prev_year_questions.Assignments;
 import com.example.i_app.view.home.Home;
 import com.example.i_app.view.notes.Notes;
 import com.google.android.material.navigation.NavigationView;

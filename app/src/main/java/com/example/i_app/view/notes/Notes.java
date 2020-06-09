@@ -28,6 +28,7 @@ import com.example.i_app.model.NotesDownModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -44,6 +45,7 @@ public class Notes extends Fragment {
     private String noteName;
     private Database database;
     public static ProgressDialog progressDialog;
+    private FloatingActionButton floatingActionButton;
 
     @Nullable
     @Override
@@ -89,57 +91,91 @@ public class Notes extends Fragment {
                 Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
         });
+
+        floatingActionButton = view.findViewById(R.id.float_button_upload);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                View addView = getLayoutInflater().inflate(R.layout.custom_adddialog, null);
+
+                Button button_upload = addView.findViewById(R.id.button_upload);
+                text_noteName = addView.findViewById(R.id.notes_name);
+
+                alert.setView(addView);
+
+                final AlertDialog alertDialog = alert.create();
+                alertDialog.show();
+                alertDialog.setCanceledOnTouchOutside(false);
+
+                button_upload.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        noteName = text_noteName.getText().toString();
+                        if (noteName.isEmpty()) {
+                            text_noteName.setError("Enter a valid name");
+                            return;
+                        } else text_noteName.setError(null);
+
+                        Intent intent = new Intent();
+                        intent.setType("application/pdf");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select Pdf"), 2000);
+                    }
+                });
+            }
+        });
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-        //inflater.inflate(R.menu.fragments_menu,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.add_pdf) {
-            // Toast.makeText(getContext(),"button clicked",Toast.LENGTH_SHORT).show();
-            final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-            View addView = getLayoutInflater().inflate(R.layout.custom_adddialog, null);
-
-            Button button_upload = addView.findViewById(R.id.button_upload);
-            text_noteName = addView.findViewById(R.id.notes_name);
-
-            alert.setView(addView);
-
-            final AlertDialog alertDialog = alert.create();
-            alertDialog.show();
-            alertDialog.setCanceledOnTouchOutside(true);
-
-            button_upload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    noteName = text_noteName.getText().toString();
-                    if (noteName.isEmpty()) {
-                        text_noteName.setError("Enter a valid name");
-                        return;
-                    } else text_noteName.setError(null);
-
-                    Intent intent = new Intent();
-                    intent.setType("application/pdf");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select Pdf"), 2000);
-                }
-            });
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//
+//        //inflater.inflate(R.menu.fragments_menu,menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if (item.getItemId() == R.id.add_pdf) {
+//            // Toast.makeText(getContext(),"button clicked",Toast.LENGTH_SHORT).show();
+//            final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+//            View addView = getLayoutInflater().inflate(R.layout.custom_adddialog, null);
+//
+//            Button button_upload = addView.findViewById(R.id.button_upload);
+//            text_noteName = addView.findViewById(R.id.notes_name);
+//
+//            alert.setView(addView);
+//
+//            final AlertDialog alertDialog = alert.create();
+//            alertDialog.show();
+//            alertDialog.setCanceledOnTouchOutside(true);
+//
+//            button_upload.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    noteName = text_noteName.getText().toString();
+//                    if (noteName.isEmpty()) {
+//                        text_noteName.setError("Enter a valid name");
+//                        return;
+//                    } else text_noteName.setError(null);
+//
+//                    Intent intent = new Intent();
+//                    intent.setType("application/pdf");
+//                    intent.setAction(Intent.ACTION_GET_CONTENT);
+//                    startActivityForResult(Intent.createChooser(intent, "Select Pdf"), 2000);
+//                }
+//            });
+//            return true;
+//        } else {
+//            return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

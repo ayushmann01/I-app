@@ -110,6 +110,7 @@ public class Database {
         final StorageReference notesRef = storage.child("notes/" + noteName + ".pdf");
         final CollectionReference collectionReference = firestoreDB.collection("Notes");
 
+
         notesRef.putFile(noteUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {

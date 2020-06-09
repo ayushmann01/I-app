@@ -5,22 +5,22 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/home_icon"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_notes"
             android:icon="@drawable/notes_icon"
-            android:title="Notes" />
+            android:title="@string/notes" />
         <item
             android:id="@+id/nav_assignment"
             android:icon="@drawable/assignment_icon"
-            android:title="Assignment" />
+            android:title="@string/prev_questions" />
     </group>
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout_icon"
-            android:title="Logout" />
+            android:title="@string/logout" />
 
     </group>
 

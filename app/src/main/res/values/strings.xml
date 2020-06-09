@@ -26,4 +26,10 @@
     <string name="uploaded_by">Uploaded by-</string>
     <string name="download">Download</string>
     <string name="pdf_name">Pdf name</string>
+    <string name="subject_name">Subject Name</string>
+    <string name="s_i">S.I</string>
+    <string name="prev_questions">Prev. Questions</string>
+    <string name="logout">Logout</string>
+    <string name="notes">Notes</string>
+    <string name="home">Home</string>
 </resources>
